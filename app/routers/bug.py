@@ -16,6 +16,22 @@ router = APIRouter(
     tags=['Bugs']
 )
 
+
+@router.get("/count",  response_model=List[schemas.ProjectOutBug])
+def get_number_bugs(db: Session = Depends(get_db), current_user: int = Depends(oauth2.get_current_user), 
+            limit: int =10, skip: int=0, search: Optional[str] = ""):
+
+   
+    #by default join is left join outer
+    projects = db.query(models.Project, func.count(models.Bug.project_id).label("bugs")).join(
+        models.Bug, models.Bug.project_id == models.Project.id, isouter = True).group_by(
+            models.Project.id).all()
+    #print(results)
+
+    return projects
+
+
+
 @router.get("/",  response_model=List[schemas.Bug])
 def get_bugs(db: Session = Depends(get_db), current_user: int = Depends(oauth2.get_current_user)):
 
@@ -43,11 +59,12 @@ def get_bug(id: int, response: Response, db: Session = Depends(get_db), current_
 def create_bug(bug: schemas.BugCreate, db: Session = Depends(get_db), current_user: int = Depends(oauth2.get_current_user)):
 
     
-    new_bug = models.Bug(openedbyId=current_user.id, **bug.dict())
+    new_bug = models.Bug(openedbyId=current_user.id, user_id =current_user.id, **bug.dict())
     print(new_bug)
     db.add(new_bug)
     db.commit()
     db.refresh(new_bug)
+    
 
     return new_bug
 

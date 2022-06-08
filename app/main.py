@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from .config import settings
 from . import models
 from .database import engine
-from .routers import auth,project,member,user,bug
+from .routers import auth,project,member,user,bug, note
 from fastapi.middleware.cors import CORSMiddleware
 
 
@@ -26,6 +26,7 @@ app.include_router(user.router)
 app.include_router(auth.router)
 app.include_router(member.router)
 app.include_router(bug.router)
+app.include_router(note.router)
 
 
 @app.get("/")

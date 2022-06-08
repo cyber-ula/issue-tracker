@@ -21,10 +21,11 @@ def member(member: schemas.Member, db: Session = Depends(database.get_db), curre
     if not project:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Project with id: {member.project_id} does not exist")
 
+    user = db.query(models.Member).filter(models.Member.user_id == current_user.id).first()
+    print(user)
 
-    if current_user.id:
-        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail =f'You cannot be member twice')
-    
+    if user:
+         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail =f'You cannot be member twice')
     new_member = models.Member(project_id=member.project_id, user_id=current_user.id)
     db.add(new_member)
     print("Done")

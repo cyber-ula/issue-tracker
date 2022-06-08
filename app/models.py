@@ -30,11 +30,10 @@ class User(Base):
 class Member(Base):
     __tablename__ = 'members'
 
-    id = Column(Integer, primary_key=True, nullable=False)
     user_id =Column(Integer, ForeignKey(
-        "users.id", ondelete = "CASCADE"))
+        "users.id", ondelete = "CASCADE"), primary_key=True)
     project_id =Column(Integer, ForeignKey(
-        "projects.id", ondelete="CASCADE"))
+        "projects.id", ondelete="CASCADE"), primary_key=True)
     joined_at=Column(TIMESTAMP(timezone=True), nullable=False, server_default= text('NOW()'))
 
 class Bug(Base):
@@ -46,6 +45,8 @@ class Bug(Base):
     status = Column(String, nullable=False)
     project_id =Column(Integer, ForeignKey(
         "projects.id", ondelete="CASCADE"))
+    user_id =Column(Integer, ForeignKey(
+        "users.id", ondelete="CASCADE"))
     openedbyId = Column(Integer, ForeignKey("users.id", ondelete = "CASCADE"), nullable=True)
     opened_at = Column(TIMESTAMP(timezone=True), nullable=True, server_default= text('NOW()'))
     closedbyId =  Column(Integer, ForeignKey("users.id", ondelete = "CASCADE"), nullable=True)
@@ -56,12 +57,13 @@ class Bug(Base):
     
 class Notes(Base):
     __tablename__ = 'notes'
-    id = Column(Integer, primary_key=True, nullable=False)
     note = Column(String, nullable=False)
     bug_id = Column(Integer, ForeignKey(
-        "bugs.id", ondelete = "CASCADE"))
+        "bugs.id", ondelete = "CASCADE"), primary_key=True)
     user_id = Column(Integer, ForeignKey(
-        "users.id", ondelete = "CASCADE"))
+        "users.id", ondelete = "CASCADE"), primary_key=True)
+    project_id = Column(Integer, ForeignKey(
+        "projects.id", ondelete = "CASCADE"), primary_key=True)
     created_at = Column(TIMESTAMP(timezone=True), nullable=False, server_default= text('NOW()'))
     updated_at = Column(TIMESTAMP(timezone=True), nullable=False, server_default= text('NOW()'))
     bug = relationship("Bug")

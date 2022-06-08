@@ -44,6 +44,13 @@ class ProjectOut(BaseModel):
     class Config:
         orm_mode = True
 
+class ProjectOutBug(BaseModel):
+    Project: Project
+    bugs: int
+
+    class Config:
+        orm_mode = True
+
 class UserCreate(BaseModel):
     email: EmailStr
     password: str
@@ -64,6 +71,7 @@ class TokenData(BaseModel):
 
 class Member(BaseModel):
     project_id: int
+    user_id: Optional[int] = None
     #dir: conint(le=1) 
     
 class BugCreate(BaseModel):
@@ -83,6 +91,7 @@ class Bug(BaseModel):
     priority: str
     status: str
     project_id: int
+    user_id:int
     openedbyId: int = None
     opened_at: datetime
     created_at: datetime
@@ -91,6 +100,30 @@ class Bug(BaseModel):
 
     class Config:
         orm_mode = True
+
+class Notes(BaseModel):
+    note: str
+    project_id: int
+    bug_id: int
+    dir: conint(le=1) 
+    
+
+    class Config:
+        orm_mode = True
+
+class NotesOut(BaseModel):
+    note: str
+    project_id: int
+    user_id: int
+    bug_id: int
+    created_at: datetime
+    updated_at: datetime
+    bug: Bug
+    
+
+    class Config:
+        orm_mode = True
+
 #less or equal 1 ---> result: 0 or 1 only
 
 

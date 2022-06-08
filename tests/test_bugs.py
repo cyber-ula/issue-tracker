@@ -29,14 +29,14 @@ def test_get_one_bug(authorized_client, test_bugs):
     project = schemas.Bug(**res.json()) #unpack res, we have pydantic model
     assert project.project.id == test_bugs[0].id
 
-@pytest.mark.parametrize("title, description, priority, status, project_id",[
-    ("awesome new title", "awesome new content", "low", "Open", 1),
-    ("favourite new pizza", "I love pepperoni", "medium", "Testing",2),
-    ("fastapi title", "awesome new api", "high", "Development",3)
+@pytest.mark.parametrize("title, description, priority, status, project_id, user_id",[
+    ("awesome new title", "awesome new content", "low", "Open", 1, 1),
+    ("favourite new pizza", "I love pepperoni", "medium", "Testing",2,1),
+    ("fastapi title", "awesome new api", "high", "Development",3,1)
 
 ])
 def test_create_project(authorized_client, test_user,test_projects, test_bugs, title, description, priority, status, user_id, project_id):
-    res = authorized_client.post("/bugs/", json = {"title": title, "description": description, "priority": priority, "status": status, "project_id": project_id})
+    res = authorized_client.post("/bugs/", json = {"title": title, "description": description, "priority": priority, "status": status, "user_id": user_id, "project_id": project_id})
     created_post = schemas.BugCreate(**res.json())
 
     assert res.status_code == 201

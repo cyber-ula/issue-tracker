@@ -31,10 +31,10 @@ def get_projects(db: Session = Depends(get_db), current_user: int = Depends(oaut
     return projects
 
 @router.post("/", status_code = status.HTTP_201_CREATED, response_model=schemas.Project)
-def create_projects(post: schemas.ProjectCreate, db: Session = Depends(get_db), current_user: int = Depends(oauth2.get_current_user)):
+def create_projects(project: schemas.ProjectCreate, db: Session = Depends(get_db), current_user: int = Depends(oauth2.get_current_user)):
 
     
-    new_project = models.Project(owner_id = current_user.id, **post.dict())
+    new_project = models.Project(owner_id = current_user.id, **project.dict())
     db.add(new_project)
     db.commit()
     db.refresh(new_project)
@@ -47,7 +47,7 @@ def create_projects(post: schemas.ProjectCreate, db: Session = Depends(get_db), 
 def get_project(id: int, response: Response, db: Session = Depends(get_db), current_user: int = Depends(oauth2.get_current_user)):
 
 
-    project = db.query(models.Project, func.count(models.Member.project_id).label("members"), func.count(models.Bug.project_id).label("bugs")).join(
+    project = db.query(models.Project, func.count(models.Member.project_id).label("members")).join(
         models.Member, models.Member.project_id == models.Project.id, isouter = True).filter(models.Project.id ==id).group_by(
             models.Project.id).first()
     
