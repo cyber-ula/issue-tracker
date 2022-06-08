@@ -4,7 +4,7 @@ import { UserContext } from "../context/UserContext";
 
 const Header = () => {
   const [token, setToken] = useContext(UserContext);
-  const [email, setEmail] = useContext(UserContext);
+  const [, setEmail] = useContext(UserContext);
   const handleLogout = () => {
     setToken(null);
     setEmail(null);

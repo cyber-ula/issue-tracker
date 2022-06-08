@@ -15,7 +15,7 @@ export const UserProvider = (props) => {
         },
       };
 
-      const response = await fetch("/users/me", requestOptions);
+      const response = await fetch("https://u-issue-tracker.herokuapp.com/users/me", requestOptions);
 
       if (!response.ok) {
         setToken(null);

@@ -17,7 +17,7 @@ const Register = () => {
       body: JSON.stringify({ email: email, password: password }),
     };
 
-    const response = await fetch("/users/", requestOptions);
+    const response = await fetch("https://u-issue-tracker.herokuapp.com/users/", requestOptions);
     const data = await response.json();
 
     if (!response.ok) {

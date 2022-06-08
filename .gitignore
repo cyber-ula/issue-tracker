@@ -3,7 +3,6 @@ venv-track/
 __pycache__/
 .pytest_cache/
 node_modules/
-frontend/
 
 # dependencies
 frontend/node_modules
