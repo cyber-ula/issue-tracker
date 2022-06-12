@@ -93,6 +93,7 @@ const Table = () => {
 
   return (
     <>
+   
       <LeadModal
         active={activeModal}
         handleModal={handleModal}

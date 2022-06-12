@@ -9,7 +9,11 @@ const Register = () => {
   const [confirmationPassword, setConfirmationPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [, setToken] = useContext(UserContext);
+  const [isRegister, setIsRegister] = useState(false)
 
+  const switchMode = () => {
+    setIsRegister((prevIsSignup) => !prevIsSignup);}
+ 
   const submitRegistration = async () => {
     const requestOptions = {
       method: "POST",
@@ -37,12 +41,61 @@ const Register = () => {
       );
     }
   };
+  
+    const handleLogin = async () => {
+      const requestOptions = {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: JSON.stringify(
+          `grant_type=&username=${email}&password=${password}&scope=&client_id=&client_secret=`
+        ),
+      };
+  
+      const response = await fetch("https://u-issue-tracker.herokuapp.com/login", requestOptions);
+      const data = await response.json();
+  
+      if (!response.ok) {
+        setErrorMessage(data.detail);
+      } else {
+        setToken(data.access_token);
+      }
+    };
+
+    const handleSubmitLogin = (e) => {
+      e.preventDefault();
+     handleLogin();
+    };
+
+    const submitLoginTest = async () => {
+      const requestOptions = {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: JSON.stringify(
+          `grant_type=&username=${"test@test.com"}&password=${"password123"}&scope=&client_id=&client_secret=`
+        ),
+      };
+  
+      const response = await fetch("https://u-issue-tracker.herokuapp.com/login", requestOptions);
+      const data = await response.json();
+  
+      if (!response.ok) {
+        setErrorMessage(data.detail);
+      } else {
+        setToken(data.access_token);
+      }
+    };
+  
+    const handleSubmitTest = (e) => {
+      e.preventDefault();
+      submitLoginTest();
+    };
 
   return (
     <div className="column">
-      <form className="box" onSubmit={handleSubmit}>
-        <h1 className="title has-text-centered">Register</h1>
-        <div className="field">
+      <form className="box" onSubmit={!confirmationPassword?handleSubmitLogin: handleSubmit}>
+        <h1 className="title has-text-centered">{isRegister? "Register": "Login"}</h1>
+       
+       <div className="field">
           <label className="label">Email Address</label>
           <div className="control">
             <input
@@ -68,6 +121,8 @@ const Register = () => {
             />
           </div>
         </div>
+        {isRegister && (
+        <>
         <div className="field">
           <label className="label">Confirm Password</label>
           <div className="control">
@@ -83,10 +138,17 @@ const Register = () => {
         </div>
         <ErrorMessage message={errorMessage} />
         <br />
+        </>
+        )}
         <button className="button is-primary" type="submit">
-          Register
+          Submit
         </button>
       </form>
+      <div><p>
+        {isRegister? "Already have an account?": "Don't have an account?"}
+      <span onClick={switchMode}>{isRegister? "Sign In": "Sign Up"}</span> </p></div>
+      <button className="button is-primary" onClick={handleSubmitTest}>Login as a test user</button>
+
     </div>
   );
 };
