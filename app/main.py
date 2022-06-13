@@ -11,7 +11,7 @@ print(settings.database_name)
 models.Base.metadata.create_all(bind=engine)
 app = FastAPI()
 
-origins = ['https://u-issue-tracker.vercel.app', 'http://127.0.0.1:3000/'] # '*' means every single domain can communicate with us:)
+origins = ['*'] # '*' means every single domain can communicate with us:)
 
 app.add_middleware(
     CORSMiddleware,
