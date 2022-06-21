@@ -19,7 +19,7 @@ const App = () => {
         <div className="column m-5 is-two-thirds">
           {!token ? (
             <div className="columns">
-              <Register /> 
+              <Register /><Login/>
             </div>
           ) : (
             <Table />

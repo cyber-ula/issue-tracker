@@ -18,7 +18,7 @@ const Login = () => {
       ),
     };
 
-    const response = await fetch("https://u-issue-tracker.herokuapp.com/login", requestOptions);
+    const response = await fetch("/login", requestOptions);
     const data = await response.json();
 
     if (!response.ok) {
@@ -37,7 +37,7 @@ const Login = () => {
       ),
     };
 
-    const response = await fetch("https://u-issue-tracker.herokuapp.com/login", requestOptions);
+    const response = await fetch("/login", requestOptions);
     const data = await response.json();
 
     if (!response.ok) {

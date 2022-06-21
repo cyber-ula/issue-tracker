@@ -32,7 +32,7 @@ const Table = () => {
         Authorization: "Bearer " + token,
       },
     };
-    const response = await fetch(`https://u-issue-tracker.herokuapp.com/projects/${id}`, requestOptions);
+    const response = await fetch(`/projects/${id}`, requestOptions);
     if (!response.ok) {
       setErrorMessage("Failed to delete lead");
     }
@@ -48,7 +48,7 @@ const Table = () => {
         Authorization: "Bearer " + token,
       },
     };
-    const response = await fetch("https://u-issue-tracker.herokuapp.com/projects", requestOptions);
+    const response = await fetch("/projects", requestOptions);
     if (!response.ok) {
       setErrorMessage("Something went wrong. Couldn't load the leads");
     } else {
@@ -70,7 +70,7 @@ const Table = () => {
         Authorization: "Bearer " + token,
       },
     };
-    const response = await fetch("https://u-issue-tracker.herokuapp.com/bugs/count", requestOptions);
+    const response = await fetch("/bugs/count", requestOptions);
     if (!response.ok) {
       setErrorMessage("Something went wrong. Couldn't load the leads");
     } else {

@@ -4,7 +4,6 @@ export const UserContext = createContext();
 
 export const UserProvider = (props) => {
   const [token, setToken] = useState(localStorage.getItem("awesomeLeadsToken"));
-  const [email, setEmail] = useState(localStorage.getItem("email"))
   useEffect(() => {
     const fetchUser = async () => {
       const requestOptions = {
@@ -15,22 +14,22 @@ export const UserProvider = (props) => {
         },
       };
 
-      const response = await fetch("https://u-issue-tracker.herokuapp.com/users/me", requestOptions);
+      const response = await fetch("/users/me", requestOptions);
 
       if (!response.ok) {
         setToken(null);
         
       }
       localStorage.setItem("awesomeLeadsToken", token);
-      localStorage.setItem("email", email)
-      const data = await response.json();
+     // localStorage.setItem("email", email)
+      //const data = await response.json();
 
-      console.log(data.email)
-      setEmail(data.email);
+      // console.log(data.email)
+      // setEmail(data.email);
 
     };
     fetchUser();
-  }, [token,email]);
+  }, [token]);
 
   return (
     <>
