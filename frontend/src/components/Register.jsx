@@ -10,6 +10,8 @@ const Register = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [, setToken] = useContext(UserContext);
   const [isRegister, setIsRegister] = useState(false)
+  const URL = "https://u-issue-tracker.herokuapp.com"
+
 
   const switchMode = () => {
     setIsRegister((prevIsSignup) => !prevIsSignup);}
@@ -23,7 +25,7 @@ const Register = () => {
       body: JSON.stringify({ email: email, password: password }),
     };
 
-    const response = await fetch("/users", requestOptions);
+    const response = await fetch(URL +"/users", requestOptions);
     const data = await response.json();
     console.log(data)
     if (!response.ok) {
@@ -55,8 +57,7 @@ const Register = () => {
           `grant_type=&username=${email}&password=${password}&scope=&client_id=&client_secret=`
         ),
       };
-  
-      const response = await fetch("/login", requestOptions);
+      const response = await fetch( URL +"/login", requestOptions);
       const data = await response.json();
   
       if (!response.ok) {
@@ -82,7 +83,7 @@ const Register = () => {
         ),
       };
   
-      const response = await fetch("/login", requestOptions);
+      const response = await fetch(URL+"/login", requestOptions);
       const data = await response.json();
   
       if (!response.ok) {
