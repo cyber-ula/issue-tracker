@@ -27,8 +27,8 @@ const Register = () => {
     };
 
 
-    const response = await fetch("/users/", requestOptions);
-    const response1 = await fetch("/login", requestOptions1);
+    const response = await fetch("https://u-issue-tracker.herokuapp.com/users/", requestOptions);
+    const response1 = await fetch("https://u-issue-tracker.herokuapp.com/login", requestOptions1);
 
 
     const data = await response.json();
@@ -37,7 +37,7 @@ const Register = () => {
       setErrorMessage(data.detail);
       setErrorMessage(data1.detail)
     } else {
-      setToken(data1.access_token)  
+      setToken(data.access_token)  
     }
   };
 

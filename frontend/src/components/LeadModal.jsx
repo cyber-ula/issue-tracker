@@ -14,7 +14,7 @@ const LeadModal = ({ active, handleModal, token, id, setErrorMessage }) => {
           Authorization: "Bearer " + token,
         },
       };
-      const response = await fetch(`/projects/${id}`, requestOptions);
+      const response = await fetch(`https://u-issue-tracker.herokuapp.com/projects/${id}`, requestOptions);
 
       if (!response.ok) {
         setErrorMessage("Could not get the lead");
@@ -51,7 +51,7 @@ const LeadModal = ({ active, handleModal, token, id, setErrorMessage }) => {
         
       }),
     };
-    const response = await fetch("/projects", requestOptions);
+    const response = await fetch("https://u-issue-tracker.herokuapp.com/projects", requestOptions);
     if (!response.ok) {
       setErrorMessage("Something went wrong when creating lead");
     } else {
@@ -74,7 +74,7 @@ const LeadModal = ({ active, handleModal, token, id, setErrorMessage }) => {
        
       }),
     };
-    const response = await fetch(`/projects/${id}`, requestOptions);
+    const response = await fetch(`https://u-issue-tracker.herokuapp.com/projects/${id}`, requestOptions);
     if (!response.ok) {
       setErrorMessage("Something went wrong when updating lead");
     } else {
