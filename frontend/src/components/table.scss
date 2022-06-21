@@ -1,0 +1,21 @@
+.container{
+
+    &:hover{
+        h1{
+            display: none;
+        }
+    }
+    .options{
+        display: none;
+    }
+
+    &:hover{
+        .options{
+            display: flex;
+            flex-direction: column;
+        }
+    }
+
+       
+}
+

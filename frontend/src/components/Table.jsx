@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import moment from "moment";
+import './table.scss'
 
 import ErrorMessage from "./ErrorMessage";
 import LeadModal from "./LeadModal";
@@ -132,19 +133,24 @@ const Table = () => {
                 <td>{lead.Project.owner.email}</td>
                 <td>{moment(lead.Project.owner.created_at).format("MMM Do YY")}</td>
                 <td>
-                  <button
-                    className="button mr-2 is-info is-light"
-                    onClick={() => handleUpdate(lead.Project.id)}
-                  >
-                    Update
-                  </button>
-                 
-                  <button
-                    className="button mr-2 is-danger is-light"
-                    onClick={() => handleDelete(lead.Project.id)}
-                  >
-                    Delete
-                  </button>
+                  <div className="container">
+                    <h1>...</h1>
+                    <div className="options">
+                      <button
+                        className="button mr-2 is-info is-light"
+                        onClick={() => handleUpdate(lead.Project.id)}
+                      >
+                        Update
+                      </button>
+                    
+                      <button
+                        className="button mr-2 is-danger is-light"
+                        onClick={() => handleDelete(lead.Project.id)}
+                      >
+                        Delete
+                      </button>
+                      </div>
+                  </div>
                 </td>
               </tr>
             ))}

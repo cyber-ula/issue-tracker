@@ -18,14 +18,17 @@ const Register = () => {
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
+      //credentials: 'include',
+      mode: 'no-cors',
       body: JSON.stringify({ email: email, password: password }),
     };
 
-    const response = await fetch("https://u-issue-tracker.herokuapp.com/users/", requestOptions);
+    const response = await fetch("/users", requestOptions);
     const data = await response.json();
-
+    console.log(data)
     if (!response.ok) {
       setErrorMessage(data.detail);
+      console.log(data.detail)
     } else {
       setToken(data.access_token);
     }
@@ -46,12 +49,14 @@ const Register = () => {
       const requestOptions = {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
+       // credentials: 'include',
+       // mode: 'no-cors',
         body: JSON.stringify(
           `grant_type=&username=${email}&password=${password}&scope=&client_id=&client_secret=`
         ),
       };
   
-      const response = await fetch("https://u-issue-tracker.herokuapp.com/login", requestOptions);
+      const response = await fetch("/login", requestOptions);
       const data = await response.json();
   
       if (!response.ok) {
@@ -70,12 +75,14 @@ const Register = () => {
       const requestOptions = {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
+       // credentials: 'include',
+       // mode: 'no-cors',
         body: JSON.stringify(
           `grant_type=&username=${"test@test.com"}&password=${"password123"}&scope=&client_id=&client_secret=`
         ),
       };
   
-      const response = await fetch("https://u-issue-tracker.herokuapp.com/login", requestOptions);
+      const response = await fetch("/login", requestOptions);
       const data = await response.json();
   
       if (!response.ok) {
